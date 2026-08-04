@@ -1,8 +1,9 @@
-const { Router } = require("express")
-const router = Router()
+import { Router } from "express";
+import { listCamping } from "../controllers/camping.controller.js";
 
-router.get("/camping", (req, res)=> {
-    res.send("Hello World")
-})
-
-module.exports = router
+const router = Router();
+router.get("/list", listCamping);
+router.get("/hello", (req, res) => {
+  res.send("Hello camping");
+});
+export default router;
