@@ -2,13 +2,14 @@ import { renderError } from "../utils/renderError.util.js";
 
 export const createProfile = async (req, res, next) => {
   try {
+    const { firstName, lastName } = req.body;
+
+
+    console.log(req.user)
     
-    if(true) {
-      return renderError(400, "Password invalid")
-    }
-    console.log("Hello Create Profile");
-    res.json({ message: "Hello Create Profile" });
+    
+    res.json(req.body);
   } catch (error) {
-    next(error)
+    next(error);
   }
 };

@@ -1,4 +1,4 @@
-const renderError = async (code, message) => {
+const renderError = (code, message) => {
   const error = new Error(message);
   error.statusCode = code;
 

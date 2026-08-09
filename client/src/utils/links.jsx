@@ -1,16 +1,17 @@
 const links = [
   {
-    id: 1,
+    href: "/user/profile",
+    label: "My Profile" 
+  },
+  {
     href: "/",
     label: "Home",
   },
   {
-    id: 2,
     href: "/about",
     label: "About",
   },
   {
-    id: 3,
     href: "/admin/camping",
     label: "Camping"
   }

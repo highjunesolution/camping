@@ -2,16 +2,18 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
-import routes from "./routes/index.js";
-import { handleError } from "./middlewares/error.middleware.js";
+import routes from "./src/routes/index.js";
+import { handleError } from "./src/middlewares/error.middleware.js";
+import { clerkMiddleware } from "@clerk/express"
 // import
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middlewares
+app.use(clerkMiddleware())
 app.use(
   cors({
-    origin: "localhost:5173",
+    origin: "http://localhost:5173",
   }),
 );
 app.use(express.json());

@@ -31,7 +31,7 @@ const DropdownListMenu = () => {
           <DropdownMenuLabel>Menu</DropdownMenuLabel>
           {links.map((item) => (
             <DropdownMenuItem
-              key={item.id}
+              key={item.href}
               className={"cursor-pointer"}
               render={<Link to={item.href} />}
             >
