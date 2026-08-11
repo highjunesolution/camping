@@ -1,9 +1,11 @@
 import { Router } from "express";
-import { listCamping } from "../controllers/camping.controller.js";
+import {
+  createCamping,
+  listCamping,
+} from "../controllers/camping.controller.js";
+import { authCheck } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 router.get("/list", listCamping);
-router.get("/hello", (req, res) => {
-  res.send("Hello camping");
-});
+router.post("/create", authCheck, createCamping);
 export default router;

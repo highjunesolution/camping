@@ -6,6 +6,8 @@ import { campingSchema } from "@/utils/schema";
 import Buttons from "@/components/form/Buttons";
 import CategoryInput from "@/components/form/CategoryInput";
 import MainMap from "@/components/map/MainMap";
+import { createCamping } from "@/api/caping";
+import { useAuth } from "@clerk/react";
 
 const Camping = () => {
   const { register, handleSubmit, formState, setValue } = useForm({
@@ -13,10 +15,13 @@ const Camping = () => {
   });
 
   const { errors, isSubmitting } = formState;
-
+  const { getToken } = useAuth();
   const juSubmit = async (data) => {
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    console.log(data);
+    const token = await getToken();
+    console.log(token)
+    createCamping(token, data)
+      .then((res) => console.log(res))
+      .catch(err => console.log(err.response ?? err.message));
   };
 
   console.log(isSubmitting);
@@ -55,7 +60,7 @@ const Camping = () => {
               setValue={setValue}
             />
           </div>
-          <MainMap register={register} setValue={setValue}/>
+          <MainMap register={register} setValue={setValue} />
           <Buttons
             type={"submit"}
             text={"Create Camping"}
