@@ -6,7 +6,7 @@ import { campingSchema } from "@/utils/schema";
 import Buttons from "@/components/form/Buttons";
 import CategoryInput from "@/components/form/CategoryInput";
 import MainMap from "@/components/map/MainMap";
-import { createCamping } from "@/api/caping";
+import { createCamping } from "@/api/camping";
 import { useAuth } from "@clerk/react";
 
 const Camping = () => {

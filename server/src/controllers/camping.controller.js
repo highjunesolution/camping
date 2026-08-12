@@ -1,11 +1,18 @@
 import prisma from "../config/prisma.js";
 
-export const listCamping = async (req, res) => {
-  res.send("Hello Controller");
-  console.log("Hello Controller");
+export const listCamping = async (req, res, next) => {
+  try {
+    const campings = await prisma.landmark.findMany();
+    res.json({
+      success: true,
+      result: campings,
+    });
+  } catch (error) {
+    next(error);
+  }
 };
 
-export const createCamping = async (req, res) => {
+export const createCamping = async (req, res, next) => {
   try {
     const { id } = req.user;
     const { title, price, description, category, lat, lng } = req.body;
@@ -27,6 +34,24 @@ export const createCamping = async (req, res) => {
       message: "Create camping successfully",
       camping,
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const singleCamping = async (req, res, next) => {
+  try {
+    const { campingId } = req.params
+    const camping = await prisma.landmark.findFirst({
+      where: {
+        id: Number(campingId)
+      }
+    })
+
+    return res.json({
+      success: true,
+      result: camping
+    })
   } catch (error) {
     next(error);
   }
