@@ -8,9 +8,10 @@ import CategoryInput from "@/components/form/CategoryInput";
 import MainMap from "@/components/map/MainMap";
 import { createCamping } from "@/api/camping";
 import { useAuth } from "@clerk/react";
+import FormUploadImage from "@/components/form/FormUploadImage";
 
 const Camping = () => {
-  const { register, handleSubmit, formState, setValue } = useForm({
+  const { register, handleSubmit, formState, setValue, reset } = useForm({
     resolver: zodResolver(campingSchema),
   });
 
@@ -18,10 +19,12 @@ const Camping = () => {
   const { getToken } = useAuth();
   const juSubmit = async (data) => {
     const token = await getToken();
-    console.log(token)
     createCamping(token, data)
-      .then((res) => console.log(res))
-      .catch(err => console.log(err.response ?? err.message));
+      .then((res) => {
+        console.log(res)
+        reset();
+      })
+      .catch((err) => console.log(err.response ?? err.message));
   };
 
   console.log(isSubmitting);
@@ -54,11 +57,14 @@ const Camping = () => {
               placeholder={"input your description"}
               errors={errors}
             />
-            <CategoryInput
-              register={register}
-              name={"category"}
-              setValue={setValue}
-            />
+            <div>
+              <CategoryInput
+                register={register}
+                name={"category"}
+                setValue={setValue}
+              />
+              <FormUploadImage setValue={setValue} />
+            </div>
           </div>
           <MainMap register={register} setValue={setValue} />
           <Buttons

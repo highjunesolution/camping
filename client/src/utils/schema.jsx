@@ -7,6 +7,7 @@ const campingSchema = z.object({
   category: z.string(),
   lat: z.coerce.number(),
   lng: z.coerce.number(),
+  image: z.any(),
 });
 
 const profileSchema = z.object({
