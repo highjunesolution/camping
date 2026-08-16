@@ -15,13 +15,14 @@ export const listCamping = async (req, res, next) => {
 export const createCamping = async (req, res, next) => {
   try {
     const { id } = req.user;
-    const { title, price, description, category, lat, lng } = req.body;
-
+    const { title, price, description, category, lat, lng, image } = req.body;
     const camping = await prisma.landmark.create({
       data: {
         profileId: id,
         title,
         price,
+        secure_url: image.secure_url,
+        public_id: image.public_id,
         description,
         category,
         lat,

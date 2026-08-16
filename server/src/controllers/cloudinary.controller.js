@@ -1,0 +1,25 @@
+import { v2 as cloudinary } from "cloudinary";
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET_KEY,
+});
+
+export const createImage = async (req, res, next) => {
+  try {
+    const { image } = req.body;
+    const result = await cloudinary.uploader.upload(image, {
+      public_id: `${Date.now()}`,
+      resource_type: "auto",
+      folder: "Landmark",
+    });
+
+    return res.json({
+      success:true,
+      result
+    })
+  } catch (error) {
+    next(error);
+  }
+};
