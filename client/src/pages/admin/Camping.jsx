@@ -9,7 +9,7 @@ import MainMap from "@/components/map/MainMap";
 import { createCamping } from "@/api/camping";
 import { useAuth } from "@clerk/react";
 import FormUploadImage from "@/components/form/FormUploadImage";
-
+import { createAlert } from "@/utils/createAlert";
 const Camping = () => {
   const { register, handleSubmit, formState, setValue, reset } = useForm({
     resolver: zodResolver(campingSchema),
@@ -22,9 +22,13 @@ const Camping = () => {
     createCamping(token, data)
       .then((res) => {
         console.log(res)
-        reset();
+        reset()
+       createAlert("success", "Add camping information success")
       })
-      .catch((err) => console.log(err.response ?? err.message));
+      .catch((err) => {
+        console.log(err.response ?? err.message)
+        createAlert("error", err.message)
+      });
   };
 
   console.log(isSubmitting);
