@@ -18,10 +18,8 @@ const Breadcrums = ({ name }) => {
         <BreadcrumbSeparator />
 
         <BreadcrumbItem>
-          <BreadcrumbLink>{name}</BreadcrumbLink>
+          <BreadcrumbPage>{name}</BreadcrumbPage>
         </BreadcrumbItem>
-
-
       </BreadcrumbList>
     </Breadcrumb>
   );
