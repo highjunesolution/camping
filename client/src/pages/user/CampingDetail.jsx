@@ -1,4 +1,5 @@
 import { readCamping } from "@/api/camping";
+import Breadcrums from "@/components/campings/Breadcrums";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 
@@ -17,6 +18,11 @@ function CampingDetail() {
 
     fetchCampingDetail();
   }, [id]);
-  return <div>CampingDetail</div>;
+  return <div>
+    <Breadcrums name={camping.title}/>
+    {/* Header */}
+    {/* Image */}
+    {/* Description */}
+  </div>;
 }
 export default CampingDetail;

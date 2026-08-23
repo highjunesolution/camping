@@ -5,7 +5,6 @@ const Layout = () => {
   return (
     <main className="container">
       <Navbar/>
-      <hr/>
       <Outlet />
     </main>
   );
