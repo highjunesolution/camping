@@ -8,6 +8,8 @@ import Home from "@/pages/Home";
 import NotFound from "@/pages/NotFound";
 import Profile from "@/pages/user/Profile";
 import { BrowserRouter, Route, Routes } from "react-router";
+import ProtectRoute from "./ProtectRoute";
+import CampingDetail from "@/pages/user/CampingDetail";
 
 const AppRoutes = () => {
   return (
@@ -22,11 +24,12 @@ const AppRoutes = () => {
         {/* Private User */}
         <Route path="user" element={<Layout/>}>
           <Route path="profile" element={<Profile/>}/>
+          <Route path="camping/:id" element={<CampingDetail/>}/>
         </Route>
 
         
         {/* Private Admin */}
-        <Route path="admin" element={<LayoutAdmin />}>
+        <Route path="admin" element={<ProtectRoute el={<LayoutAdmin/>} />}>
           <Route index element={<Dashboard />} />
           <Route path="manage/:id" element={<Manage />} />
           <Route path="camping" element={<Camping />} />

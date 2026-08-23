@@ -20,18 +20,17 @@ const Camping = () => {
   const juSubmit = async (data) => {
     const token = await getToken();
     createCamping(token, data)
-      .then((res) => {
-        console.log(res)
-        reset()
-       createAlert("success", "Add camping information success")
+      .then(() => {
+        reset();
+        createAlert("success", "Add camping information success");
       })
       .catch((err) => {
-        console.log(err.response ?? err.message)
-        createAlert("error", err.message)
+        console.log(err.response ?? err.message);
+        createAlert("error", err.message);
       });
   };
 
-  console.log(isSubmitting);
+  // console.log(isSubmitting);
   return (
     <section>
       <h1 className="capitalize text-2xl font-semibold mb-4">Create camping</h1>

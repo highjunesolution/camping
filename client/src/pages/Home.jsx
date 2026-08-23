@@ -1,9 +1,8 @@
-import MapHome from "@/components/map/MapHome";
+import CampingContainer from "@/components/home/CampingContainer";
 
 const Home = () => {
-
   return <div>
-    <MapHome/>
+    <CampingContainer/>
   </div>;
 };
 export default Home;

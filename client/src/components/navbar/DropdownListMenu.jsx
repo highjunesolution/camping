@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { TextAlignStart } from "lucide-react";
 import UserIcon from "./UserIcon";
-import { links } from "@/utils/links";
+import { privateLinks, publicLinks } from "@/utils/links";
 import { Link } from "react-router";
 import { Show, useClerk } from "@clerk/react";
 import SignOutMenuItem from "./SignOutMenuItem";
@@ -29,7 +29,8 @@ const DropdownListMenu = () => {
       <DropdownMenuContent>
         <DropdownMenuGroup>
           <DropdownMenuLabel>Menu</DropdownMenuLabel>
-          {links.map((item) => (
+
+          {publicLinks.map((item) => (
             <DropdownMenuItem
               key={item.href}
               className={"cursor-pointer"}
@@ -38,6 +39,18 @@ const DropdownListMenu = () => {
               {item.label}
             </DropdownMenuItem>
           ))}
+          <Show when={"signed-in"}>
+            <DropdownMenuSeparator/>
+            {privateLinks.map((item) => (
+              <DropdownMenuItem
+                key={item.href}
+                className={"cursor-pointer"}
+                render={<Link to={item.href} />}
+              >
+                {item.label}
+              </DropdownMenuItem>
+            ))}
+          </Show>
         </DropdownMenuGroup>
 
         <DropdownMenuSeparator />
