@@ -1,4 +1,5 @@
 import { readCamping } from "@/api/camping";
+import BookingContainer from "@/components/booking/BookingContainer";
 import Breadcrums from "@/components/campings/Breadcrums";
 import Description from "@/components/campings/Description";
 import ImageContainer from "@/components/campings/ImageContainer";
@@ -37,11 +38,19 @@ function CampingDetail() {
       </header>
 
       <ImageContainer image={camping.secure_url} name={camping.title} />
-
-      <div>
-        <Description text={camping.description} />
-        {camping.lat && <MainMap location={[camping.lat, camping.lng]} />}
-      </div>
+      <section className="lg:grid lg:grid-cols-12 gap-x-12 mt-12">
+        <div className="lg:col-span-8">
+          <Description text={camping.description} />
+          {camping.lat && <MainMap location={[camping.lat, camping.lng]} />}
+        </div>
+        <div className="lg:col-span-4 flex flex-col">
+          <BookingContainer
+            campingId={camping.id}
+            price={camping.price}
+            bookings={[]}
+          />
+        </div>
+      </section>
     </div>
   );
 }
