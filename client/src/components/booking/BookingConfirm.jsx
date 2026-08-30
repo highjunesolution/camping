@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { createBooking } from "@/api/booking";
+import { useNavigate } from "react-router";
 
 const BookingConfirm = () => {
   // Zustand
@@ -24,6 +25,8 @@ const BookingConfirm = () => {
   } = useForm();
 
   // Navigate
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (!userId) return;
     if (campingId) setValue("campingId", campingId);
@@ -50,13 +53,16 @@ const BookingConfirm = () => {
 
     try {
       const res = await createBooking(token, value);
-      console.log(res);
+      console.log(res.data.result);
+      const bookingId = res.data.result
+      navigate(`/user/checkout/${bookingId}`)
     } catch (error) {
       console.log(error);
     }
 
-    console.log(token);
-    console.log(value);
+    // console.log(token);
+    // console.log(value);
+
   };
   return (
     <div className="flex justify-center">
