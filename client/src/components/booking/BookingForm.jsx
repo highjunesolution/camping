@@ -2,6 +2,7 @@ import useBookingStore from "@/store/booking-store";
 import { Card, CardTitle } from "../ui/card";
 import { calTotal } from "@/utils/booking";
 import { formatNumber } from "@/utils/formatNumber";
+import BookingConfirm from "./BookingConfirm";
 
 
 
@@ -26,7 +27,7 @@ const BookingForm = () => {
         </p>
       </Card>
       {/* ConfirmBooking */}
-      <p>Confirm Booking</p>
+      <BookingConfirm/>
     </div>
   );
 };
