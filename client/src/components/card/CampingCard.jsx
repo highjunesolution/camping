@@ -22,7 +22,7 @@ const CampingCard = ({ camping }) => {
             <h3 className="text-xl font-semibold">{title}</h3>
           </div>
 
-          <p className="text-sm text-gray-600 px-2">{description}</p>
+          <p className="text-sm text-gray-600 px-2">{description.substring(0,50)} ดูเพิ่มเติม...</p>
 
           <div className="flex justify-between items-end px-2 mb-2">
             <p className="font-semibold">THB {price}</p>
