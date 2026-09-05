@@ -7,7 +7,8 @@ import {
 import { useAuth } from "@clerk/react";
 import { checkOut } from "@/api/booking";
 
-const stripePromise = loadStripe("pk_test_51UBEaHIvflVvaWMeSY6wTHeGl2hvVRVXP9GUspvmD4nb10Pek8tmjRWoLd4Fnx7EqUj18BgDHnj0U3uyU4hvtwcR00FpOyA1td");
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
+console.log("key", import.meta.env.VITE_STRIPE_KEY)
 
 const Checkout = () => {
     const { id } = useParams();

@@ -97,6 +97,7 @@ export const checkOut = async (req, res, next) => {
     // Step 2 Stripe
     const session = await stripe.checkout.sessions.create({
       ui_mode: "embedded_page",
+      metadata: { bookingId: booking.id },
       line_items: [
         {
           // Provide the exact Price ID (for example, price_1234) of the product you want to sell
@@ -122,3 +123,30 @@ export const checkOut = async (req, res, next) => {
     next(error);
   }
 };
+
+export const checkOutStatus = async (req, res, next) => {
+  try {
+    const { session_id } = req.params
+    const session = await stripe.checkout.sessions.retrieve(session_id)
+    const bookingId = session.metadata?.bookingId
+    if(session.status !== 'complete' || !bookingId) return renderError(400, "Something wrong")
+     
+     console.log(session) 
+
+     await prisma.booking.update({
+      where: {
+        id: Number(bookingId),
+      },
+      data: {
+        paymentStatus: true
+      }
+     })
+
+     return res.status(200).json({
+      success: true,
+      status: session.status,
+     })
+  } catch (error) {
+    next(error)
+  }
+}
