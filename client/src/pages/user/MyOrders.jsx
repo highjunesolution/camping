@@ -11,6 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { formatDate, formatNumber } from "@/utils/formats";
+import BookingPDF from "@/components/booking/BookingPDF";
 const MyOrders = () => {
   const [bookings, setBookings] = useState([]);
   const { getToken } = useAuth();
@@ -43,19 +44,25 @@ const MyOrders = () => {
             <TableHead>ราคารวม</TableHead>
             <TableHead>Check In</TableHead>
             <TableHead>Check Out</TableHead>
+            <TableHead>Invoice</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {bookings?.map((item) => {
-            console.log(item)
-           return <TableRow key={item.id}>
-              <TableCell>{item.id}</TableCell>
-              <TableCell>{item.landmark.title}</TableCell>
-              <TableCell>{item.totalNights}</TableCell>
-              <TableCell>{formatNumber(item.total)}</TableCell>
-              <TableCell>{formatDate(item.checkIn)}</TableCell>
-              <TableCell>{formatDate(item.checkOut)}</TableCell>
-            </TableRow>
+            console.log(item);
+            return (
+              <TableRow key={item.id}>
+                <TableCell>{item.id}</TableCell>
+                <TableCell>{item.landmark.title}</TableCell>
+                <TableCell>{item.totalNights}</TableCell>
+                <TableCell>{formatNumber(item.total)}</TableCell>
+                <TableCell>{formatDate(item.checkIn)}</TableCell>
+                <TableCell>{formatDate(item.checkOut)}</TableCell>
+                <TableCell>
+                  <BookingPDF booking={item} />
+                </TableCell>
+              </TableRow>
+            );
           })}
         </TableBody>
       </Table>
