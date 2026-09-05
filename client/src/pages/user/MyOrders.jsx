@@ -10,8 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { formatNumber } from "@/utils/formatNumber";
-
+import { formatDate, formatNumber } from "@/utils/formats";
 const MyOrders = () => {
   const [bookings, setBookings] = useState([]);
   const { getToken } = useAuth();
@@ -54,8 +53,8 @@ const MyOrders = () => {
               <TableCell>{item.landmark.title}</TableCell>
               <TableCell>{item.totalNights}</TableCell>
               <TableCell>{formatNumber(item.total)}</TableCell>
-              <TableCell>{item.checkIn}</TableCell>
-              <TableCell>{item.checkOut}</TableCell>
+              <TableCell>{formatDate(item.checkIn)}</TableCell>
+              <TableCell>{formatDate(item.checkOut)}</TableCell>
             </TableRow>
           })}
         </TableBody>
