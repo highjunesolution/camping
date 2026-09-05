@@ -22,6 +22,7 @@ model Profile {
 
   landmarks Landmark[]
   bookings  Booking[]
+  favorites Favorite[]
 }
 
 model Landmark {
@@ -37,9 +38,10 @@ model Landmark {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  profile   Profile   @relation(fields: [profileId], references: [clerkId])
+  profile   Profile    @relation(fields: [profileId], references: [clerkId])
   profileId String
   bookings  Booking[]
+  favorites Favorite[]
 }
 
 model Booking {
@@ -54,6 +56,18 @@ model Booking {
 
   profile    Profile  @relation(fields: [profileId], references: [clerkId])
   profileId  String
+  landmark   Landmark @relation(fields: [landmarkId], references: [id])
+  landmarkId Int
+}
+
+model Favorite {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  profile    Profile   @relation(fields: [profileId], references: [clerkId])
+  profileId  String
+  
   landmark   Landmark @relation(fields: [landmarkId], references: [id])
   landmarkId Int
 }

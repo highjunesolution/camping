@@ -2,10 +2,22 @@ import prisma from "../config/prisma.js";
 
 export const listCamping = async (req, res, next) => {
   try {
-    const campings = await prisma.landmark.findMany();
+    const campings = await prisma.landmark.findMany({
+      include: {
+        favorites: {
+          where: { profileId: req?.user?.id },
+          select: { id: true },
+        },
+      },
+    });
+    const campingWithLike = campings.map((item) => ({
+      ...item,
+      isFavorites: item.favorites.length > 0,
+    }));
+    console.log(campingWithLike);
     res.json({
       success: true,
-      result: campings,
+      result: campingWithLike,
     });
   } catch (error) {
     next(error);
@@ -42,17 +54,17 @@ export const createCamping = async (req, res, next) => {
 
 export const singleCamping = async (req, res, next) => {
   try {
-    const { campingId } = req.params
+    const { campingId } = req.params;
     const camping = await prisma.landmark.findFirst({
       where: {
-        id: Number(campingId)
-      }
-    })
+        id: Number(campingId),
+      },
+    });
 
     return res.json({
       success: true,
-      result: camping
-    })
+      result: camping,
+    });
   } catch (error) {
     next(error);
   }
