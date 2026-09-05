@@ -30,3 +30,9 @@ export const checkOutStatus = async (token, session) => {
     },
   );
 };
+
+export const listBookings = async (token) => await axios.get("http://localhost:5500/api/booking/list", {
+  headers: {
+    Authorization: `Bearer ${token}`
+  }
+})

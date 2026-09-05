@@ -15,6 +15,10 @@ const privateLinks = [
     label: "My Profile" 
   },
   {
+    href: "/user/myorders",
+    label: "My Bookings" 
+  },
+  {
     href: "/admin/camping",
     label: "Camping"
   }

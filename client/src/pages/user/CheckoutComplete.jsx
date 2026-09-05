@@ -24,7 +24,7 @@ const CheckoutComplete = () => {
       }
     };
     fetchPayment();
-  }, [getToken, session]);
+  }, [getToken, session, navigate]);
 
   if (status === "open") {
     return <Navigate to={"/"} />;

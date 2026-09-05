@@ -105,13 +105,12 @@ export const checkOut = async (req, res, next) => {
           price_data: {
             currency: "thb",
             product_data: {
-                name: title,
-                images: [secure_url],
-                description: "Thank you so much"
+              name: title,
+              images: [secure_url],
+              description: "Thank you so much",
             },
-            unit_amount: total * 100
+            unit_amount: total * 100,
           },
-          
         },
       ],
       mode: "payment",
@@ -126,27 +125,57 @@ export const checkOut = async (req, res, next) => {
 
 export const checkOutStatus = async (req, res, next) => {
   try {
-    const { session_id } = req.params
-    const session = await stripe.checkout.sessions.retrieve(session_id)
-    const bookingId = session.metadata?.bookingId
-    if(session.status !== 'complete' || !bookingId) return renderError(400, "Something wrong")
-     
-     console.log(session) 
+    const { session_id } = req.params;
+    const session = await stripe.checkout.sessions.retrieve(session_id);
+    const bookingId = session.metadata?.bookingId;
+    if (session.status !== "complete" || !bookingId)
+      return renderError(400, "Something wrong");
 
-     await prisma.booking.update({
+    console.log(session);
+
+    await prisma.booking.update({
       where: {
         id: Number(bookingId),
       },
       data: {
-        paymentStatus: true
-      }
-     })
+        paymentStatus: true,
+      },
+    });
 
-     return res.status(200).json({
+    return res.status(200).json({
       success: true,
       status: session.status,
-     })
+    });
   } catch (error) {
-    next(error)
+    next(error);
   }
-}
+};
+
+export const listBookings = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const bookings = await prisma.booking.findMany({
+      where: {
+        profileId: id,
+      },
+      include: {
+        landmark: {
+          select: {
+            id: true,
+            title: true,
+          },
+        },
+      },
+      orderBy: {
+        checkIn: "asc",
+      },
+    });
+    console.log(bookings);
+    return res.status(200).json({
+      success: true,
+      result: bookings,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
