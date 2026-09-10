@@ -7,8 +7,8 @@ export const createCamping = async (token, data) =>
     },
   });
 
-export const listCamping = async () =>
-  await axios.get("http://localhost:5500/api/camping/list");
+export const listCamping = async (id) =>
+  await axios.get(`http://localhost:5500/api/camping/list/${id}`);
 
 export const readCamping = async (id) =>
-  await axios.get("http://localhost:5500/api/camping/" + id);
+  await axios.get(`http://localhost:5500/api/camping/${id}`);

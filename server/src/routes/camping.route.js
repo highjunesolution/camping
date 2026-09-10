@@ -7,7 +7,7 @@ import {
 import { authCheck } from "../middlewares/auth.middleware.js";
 
 const router = Router();
-router.get("/list", listCamping);
+router.get("/list/:id", listCamping);
 router.post("/create", authCheck, createCamping);
 router.get("/:campingId", singleCamping);
 export default router;

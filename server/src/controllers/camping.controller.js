@@ -2,19 +2,22 @@ import prisma from "../config/prisma.js";
 
 export const listCamping = async (req, res, next) => {
   try {
+
+    const { id } = req.params
+    console.log(id)
     const campings = await prisma.landmark.findMany({
       include: {
         favorites: {
-          where: { profileId: req?.user?.id },
+          where: { profileId: id },
           select: { id: true },
         },
       },
     });
     const campingWithLike = campings.map((item) => ({
       ...item,
-      isFavorites: item.favorites.length > 0,
+      isFavorite: item.favorites.length > 0,
     }));
-    console.log(campingWithLike);
+    // console.log(campingWithLike);
     res.json({
       success: true,
       result: campingWithLike,

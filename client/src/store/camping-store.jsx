@@ -4,10 +4,9 @@ import { create } from "zustand";
 // Step 1 Create Store
 const campingStore = (set) => ({
   campings: [],
-  actionListCampings: async()=>{
+  actionListCampings: async(id)=>{
     try {
-        const res = await listCamping();
-        console.log(res.data.result)
+        const res = await listCamping(id);
         set({campings: res.data.result})
     } catch (error) {
         console.log(error)
