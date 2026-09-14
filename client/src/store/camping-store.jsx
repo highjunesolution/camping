@@ -1,4 +1,4 @@
-import { listCamping } from "@/api/camping";
+import { addOrRemoveFavorite, listCamping } from "@/api/camping";
 import { create } from "zustand";
 
 // Step 1 Create Store
@@ -11,6 +11,11 @@ const campingStore = (set) => ({
     } catch (error) {
         console.log(error)
     }
+  },
+  actionAddorRemoveFavorite: async(token, data)=>{
+    const res = await addOrRemoveFavorite(token, data)
+    console.log(res)
+    return res
   }
 });
 
