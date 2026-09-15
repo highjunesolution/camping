@@ -2,8 +2,14 @@ import useCampingStore from "@/store/camping-store";
 import { CardSubmitButtons } from "./CardButtons";
 import { useForm } from "react-hook-form";
 import { useAuth } from "@clerk/react";
+import { createAlert, createNotify } from "@/utils/createAlert";
 
 const FavoriteToggleButton = ({ campingId, isFavorite }) => {
+  // Zustand
+  const actionAddorRemoveFavorite = useCampingStore(
+    (state) => state.actionAddorRemoveFavorite,
+  );
+
   // Clerk
   const { getToken } = useAuth();
 
@@ -14,26 +20,22 @@ const FavoriteToggleButton = ({ campingId, isFavorite }) => {
   } = useForm();
 
   const hdlSubmit = async () => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    // await new Promise((resolve) => setTimeout(resolve, 1000));
     const token = await getToken();
-    try {
-      const res = await actionAddorRemoveFavorite(token, {
-        campingId,
-        isFavorite,
-      });
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
+
+    const res = await actionAddorRemoveFavorite(token, {
+      campingId,
+      isFavorite,
+    });
+
+    res.success
+      ? createNotify("success", res.message)
+      : createNotify("error", res.message);
   };
 
-  // Zustand
-  const actionAddorRemoveFavorite = useCampingStore(
-    (state) => state.actionAddorRemoveFavorite,
-  );
   return (
     <form onSubmit={handleSubmit(hdlSubmit)}>
-      <CardSubmitButtons isPending={isSubmitting} isFavorite={isFavorite}/>
+      <CardSubmitButtons isPending={isSubmitting} isFavorite={isFavorite} />
     </form>
   );
 };
