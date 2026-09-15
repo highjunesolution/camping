@@ -1,8 +1,8 @@
 import useCampingStore from "@/store/camping-store";
-import { CardSubmitButtons } from "./CardButtons";
+import { CardSignInButtons, CardSubmitButtons } from "./CardButtons";
 import { useForm } from "react-hook-form";
 import { useAuth } from "@clerk/react";
-import { createAlert, createNotify } from "@/utils/createAlert";
+import { createNotify } from "@/utils/createAlert";
 
 const FavoriteToggleButton = ({ campingId, isFavorite }) => {
   // Zustand
@@ -11,7 +11,7 @@ const FavoriteToggleButton = ({ campingId, isFavorite }) => {
   );
 
   // Clerk
-  const { getToken } = useAuth();
+  const { getToken, isSignedIn } = useAuth();
 
   // Hook-Form
   const {
@@ -32,6 +32,8 @@ const FavoriteToggleButton = ({ campingId, isFavorite }) => {
       ? createNotify("success", res.message)
       : createNotify("error", res.message);
   };
+
+  if (!isSignedIn) return <CardSignInButtons />;
 
   return (
     <form onSubmit={handleSubmit(hdlSubmit)}>
