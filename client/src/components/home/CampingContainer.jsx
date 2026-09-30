@@ -7,7 +7,6 @@ import { useUser } from "@clerk/react";
 const CampingContainer = () => {
   const actionListCampings = useCampingStore(state=>state.actionListCampings);
   const { user } = useUser()
-  console.log(user)
   useEffect(()=>{
     // 
     const id = user?.id ?? null;

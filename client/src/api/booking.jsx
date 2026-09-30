@@ -35,4 +35,4 @@ export const listBookings = async (token) => await axios.get("http://localhost:5
   headers: {
     Authorization: `Bearer ${token}`
   }
-})
+});

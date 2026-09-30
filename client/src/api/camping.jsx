@@ -20,3 +20,11 @@ export const addOrRemoveFavorite = async (token, data) => await axios.post("http
     Authorization: `Bearer ${token}`
   }
 })
+
+export const listFavorite = (token) => {
+  return axios.get("http://localhost:5500/api/camping/favorites", {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+}
