@@ -3,6 +3,7 @@ import MapHome from "../map/MapHome";
 import CampingLists from "./CampingLists";
 import { useEffect } from "react";
 import { useUser } from "@clerk/react";
+import CategoryLists from "./CategoryLists";
 
 const CampingContainer = () => {
   const actionListCampings = useCampingStore(state=>state.actionListCampings);
@@ -15,6 +16,7 @@ const CampingContainer = () => {
 
   return (
     <div>
+      <CategoryLists/>
       <MapHome />
       <CampingLists />
     </div>
