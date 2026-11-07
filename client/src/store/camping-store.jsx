@@ -1,4 +1,4 @@
-import { listFavorite } from "@/api/camping";
+import { filterCamping, listFavorite } from "@/api/camping";
 import { addOrRemoveFavorite, listCamping } from "@/api/camping";
 import { create } from "zustand";
 
@@ -52,6 +52,16 @@ const campingStore = (set, get) => ({
       throw error;
     }
   },
+  actionFilter: async (category = "", search = "")=>{
+    try {
+       const res = await filterCamping(category, search);
+       console.log("This is zustand", res.data.result)
+       set({campings: res.data.result})
+    } catch (err) {
+      console.log(err)
+      throw err
+    }
+  }
 });
 
 const useCampingStore = create(campingStore);

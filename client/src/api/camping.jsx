@@ -28,3 +28,8 @@ export const listFavorite = (token) => {
     }
   })
 }
+
+// filter 
+export const filterCamping = (category, search) => {
+  return axios.get(`http://localhost:5500/api/camping/filter?category=${category}&search=${search}`)
+}

@@ -21,6 +21,6 @@ const Searchbar = () => {
     updateSearch(e.target.value)
   };
 
-  return <Input onChange={hdlSearch} placeholder="Search..." className={"max-w-xs"} />;
+  return <Input defaultValue={searchParams.get("search") ?? ""} onChange={hdlSearch} placeholder="Search..." className={"max-w-xs"} />;
 };
 export default Searchbar;

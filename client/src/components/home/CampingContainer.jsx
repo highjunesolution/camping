@@ -4,19 +4,31 @@ import CampingLists from "./CampingLists";
 import { useEffect } from "react";
 import { useUser } from "@clerk/react";
 import CategoryLists from "./CategoryLists";
+import { useSearchParams } from "react-router";
 
 const CampingContainer = () => {
-  const actionListCampings = useCampingStore(state=>state.actionListCampings);
-  const { user } = useUser()
-  useEffect(()=>{
-    // 
-    const id = user?.id ?? null;
-    actionListCampings(id);
-  },[user?.id, actionListCampings])
+  const actionListCampings = useCampingStore(
+    (state) => state.actionListCampings,
+  );
+  const actionFilter = useCampingStore((state) => state.actionFilter);
 
+  const [searchParams] = useSearchParams();
+  const { user } = useUser();
+  const id = user?.id ?? null;
+
+  const category = searchParams.get("category");
+  const search = searchParams.get("search");
+
+  useEffect(() => {
+    if (search || category) {
+      actionFilter(category, search);
+    } else {
+      actionListCampings(id);
+    }
+  }, [category, search, actionFilter, id, actionListCampings]);
   return (
     <div>
-      <CategoryLists/>
+      <CategoryLists />
       <MapHome />
       <CampingLists />
     </div>

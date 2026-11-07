@@ -133,3 +133,47 @@ export const listFavorites = async (req, res, next) => {
     next(error)
   }
 }
+
+export const filterCamping = async (req, res, next) => {
+  try {
+    const { category, search } = req.query
+    const filter = []
+    if(category) {
+      filter.push({ category })
+    }
+
+    if(search) {
+      filter.push({ title: { contains: search } })
+    }
+
+    const result = await prisma.landmark.findMany({
+      where: {
+        OR: filter
+      },
+      include: {
+        favorites: {
+          select: {
+            id:true,
+          }
+        }
+      }
+    })
+
+    const campingWithLike = result.map(item=>({
+      ...item,
+      isFavorite: item.favorites.length > 0
+    }))
+
+
+    console.log(campingWithLike);
+
+    res.status(200).json({
+      success: true,
+      result: campingWithLike
+    })
+    
+    
+  } catch (error) {
+    next(error)
+  }
+}
