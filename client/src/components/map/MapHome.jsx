@@ -4,14 +4,13 @@ import useCampingStore from "@/store/camping-store";
 
 const MyCenter = ()=>{
   const center = useCampingStore(state=>state.center);
-  console.log(center)
   const map = useMap()
 
   if(!center) {
     return null
   }
 
-  map.flyTo(center, 13)
+  map.flyTo(center, 8.5)
 
   return null
 }
