@@ -32,8 +32,10 @@ const Layers = () => {
           {campings.map((item) => (
             <Marker key={item.id} position={[item.lat, item.lng]}>
               <Popup>
-                {item.title} <br />
-                {item.description}
+                <div>
+                  <p className="text-xl font-semibold">{item.title}</p>
+                  <img src={item.secure_url} className="max-w-75 rounded-md" />
+                </div>
               </Popup>
               <Tooltip>{item.title}</Tooltip>
             </Marker>
