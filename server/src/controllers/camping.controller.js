@@ -1,4 +1,5 @@
 import prisma from "../config/prisma.js";
+import { findCenter } from "../utils/findCenter.js";
 
 export const listCamping = async (req, res, next) => {
   try {
@@ -164,12 +165,13 @@ export const filterCamping = async (req, res, next) => {
       isFavorite: item.favorites.length > 0
     }))
 
-
-    console.log(campingWithLike);
+    // Center map view
+    const center = findCenter(campingWithLike);
 
     res.status(200).json({
       success: true,
-      result: campingWithLike
+      result: campingWithLike,
+      center
     })
     
     

@@ -6,10 +6,11 @@ import { create } from "zustand";
 const campingStore = (set, get) => ({
   campings: [],
   favorites: [],
+  center: null,
   actionListCampings: async (id) => {
     try {
       const res = await listCamping(id);
-      set({ campings: res.data.result });
+      set({ campings: res.data.result, center: res.data.center });
     } catch (error) {
       console.log(error);
     }
@@ -55,8 +56,7 @@ const campingStore = (set, get) => ({
   actionFilter: async (category = "", search = "")=>{
     try {
        const res = await filterCamping(category, search);
-       console.log("This is zustand", res.data.result)
-       set({campings: res.data.result})
+       set({campings: res.data.result, center: res.data.center})
     } catch (err) {
       console.log(err)
       throw err
