@@ -25,3 +25,39 @@ export const listStats = async (req, res, next) => {
     next(error);
   }
 };
+
+export const listReservations = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    console.log(id);
+    // 1. count campings
+    // 2. count nights
+    // 3. total prices
+    const [campings, totals] = await Promise.all([
+      prisma.landmark.count({
+        where: {
+          profileId: id,
+        },
+      }),
+      prisma.booking.aggregate({
+        where: {
+          profileId: id,
+        },
+        _sum: {
+          totalNights: true,
+          total: true,
+        },
+      }),
+    ]);
+
+    res.status(200).json({
+      success: true,
+      result: {
+        campings,
+        ...totals._sum,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};

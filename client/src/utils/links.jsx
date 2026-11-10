@@ -23,9 +23,17 @@ const privateLinks = [
     label: "My Favorites" 
   },
   {
+    href: "/user/myreservations",
+    label: "My Reservations" 
+  },
+  {
     href: "/admin/camping",
     label: "Camping"
-  }
+  },
+  {
+    href: "/admin",
+    label: "Dashboard"
+  },
 ];
 
 export { publicLinks, privateLinks };
