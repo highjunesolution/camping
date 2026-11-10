@@ -38,9 +38,13 @@ export const listReservations = async (req, res, next) => {
           profileId: id,
         },
       }),
+
       prisma.booking.aggregate({
         where: {
-          profileId: id,
+          landmark: {
+            profileId: id,
+          },
+          paymentStatus: true
         },
         _sum: {
           totalNights: true,
