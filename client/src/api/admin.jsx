@@ -15,3 +15,11 @@ export const listReservations = async (token) => {
         }
     })
 }
+
+export const listAllReservations = async (token) => {
+    return axios.get("http://localhost:5500/api/admin/all-reservations", {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}

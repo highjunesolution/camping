@@ -29,7 +29,6 @@ export const listStats = async (req, res, next) => {
 export const listReservations = async (req, res, next) => {
   try {
     const { id } = req.user;
-    console.log(id);
     // 1. count campings
     // 2. count nights
     // 3. total prices
@@ -56,6 +55,38 @@ export const listReservations = async (req, res, next) => {
         campings,
         ...totals._sum,
       },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const listAllReservations = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const reservations = await prisma.booking.findMany({
+      where: {
+        paymentStatus: true,
+        landmark: {
+          profileId: id,
+        },
+      },
+      include: {
+        landmark: {
+          select: {
+            id: true,
+            title: true,
+            price: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    res.json({
+      success: true,
+      result: reservations,
     });
   } catch (error) {
     next(error);
