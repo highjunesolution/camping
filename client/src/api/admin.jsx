@@ -23,3 +23,11 @@ export const listAllReservations = async (token) => {
         }
     })
 }
+
+export const listMyCamping = async (token) => {
+    return axios.get("http://localhost:5500/api/admin/my-campings", {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}

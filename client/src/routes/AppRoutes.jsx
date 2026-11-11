@@ -15,6 +15,7 @@ import CheckoutComplete from "@/pages/user/CheckoutComplete";
 import MyOrders from "@/pages/user/MyOrders";
 import MyFavorites from "@/pages/user/MyFavorites";
 import MyReservations from "@/pages/user/MyReservations";
+import MyCampings from "@/pages/user/MyCampings";
 
 const AppRoutes = () => {
   return (
@@ -35,6 +36,7 @@ const AppRoutes = () => {
           <Route path="myorders" element={<MyOrders/>}/>
           <Route path="myfavorite" element={<MyFavorites/>}/>
           <Route path="myreservations" element={<MyReservations/>}/>
+          <Route path="mycampings" element={<MyCampings/>}/>
         </Route>
 
         
